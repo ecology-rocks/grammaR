@@ -7,6 +7,7 @@
 #' @param inString A string to be formatted.
 #' @param format If set to TRUE (default), then the string is split into individual members by | before being returned.
 #' @return This function returns the modified string.
+#' @export
 
 
 

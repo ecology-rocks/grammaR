@@ -9,7 +9,7 @@
 #'   return text.
 #'
 #' @return This function returns all text found within brackets.
-#'
+#' @export
 
 bracketXtract <-
   function(txt, br = c("(", "[", "{", "all"), with=FALSE)

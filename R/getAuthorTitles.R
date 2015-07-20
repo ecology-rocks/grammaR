@@ -10,6 +10,7 @@
 #' @param sdir The directory to process
 #'
 #' @return This function returns a data.frame with titles and authors for a directory of LaTeX documents.
+#' @export
 
 getAuthorTitles <- function(sdir="."){
   ##find all of the tex files in that path

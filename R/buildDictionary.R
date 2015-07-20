@@ -1,6 +1,13 @@
 #' Build Dictionary From Text Or File
 #'
 #' This function extracts keys/values from file or text and return key/values in data.frame
+#'
+#' @param gramtext The input text, or, a filename.
+#' @param readfile If TRUE, gramtext is a filename to read from.
+#' @param formatKey If TRUE, the key is formatted to <key> instead of key.
+#'
+#' @return This function returns a data.frame with keys and values.
+#' @export
 
 buildDictionary <- function(gramtext, readfile=TRUE, formatKey=TRUE){
 

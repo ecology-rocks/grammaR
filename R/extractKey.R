@@ -7,6 +7,7 @@
 #' @param format If set to TRUE (default), then <> are added around the word for
 #'   insertion into a story.
 #' @return This function returns the modified string.
+#' @export
 
 
 extractKey <- function(inString, format=TRUE){
