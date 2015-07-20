@@ -1,0 +1,17 @@
+Package: grammaR
+Type: Package
+Title: Context Free Grammar Story Building Helper in R
+Version: 0.1
+Date: 2015-07-19
+Author: Sam L. Davis
+Maintainer: Sam L. Davis <clubtenna@gmail.com>
+Description: This is a helper package for people wanting to create a
+  context-free grammar to generate documents. This package relies on
+  several helper languages, including Perl and OCaml, as well as the
+  command line tools ImageMagick and PanDoc. Depending on your desired
+  output, you may also need LaTeX. This package streamlines grammar
+  construction, allows you to generate documents from your grammar, and
+  also allows you to dynamically build e-book covers using ImageMagick.
+License: GPL 3.0
+LazyData: TRUE
+Suggests: testthat
