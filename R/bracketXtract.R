@@ -4,7 +4,7 @@
 #' string, and br, which says the types of brackets to search within.
 #'
 #' @param txt The text string
-#' @param br The type of bracket. Accepts (, [, {, or "all"
+#' @param br The type of bracket. Accepts \(, \[, \{, or "all"
 #' @param with Normally set to F, if T then brackets will be included with the
 #'   return text.
 #'
