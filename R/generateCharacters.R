@@ -28,7 +28,7 @@ generateCharacters <- function(charnames=c("cFemName", "cMaleName", "cFriendName
                      " ::= ",
                      randomNames(1,
                                  chargenders[i],
-                                 which.names=whichnames),
+                                 which.names=whichnames, ethnicity="white"),
                      " \n ",
                      sep="",
                      collapse="")

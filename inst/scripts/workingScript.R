@@ -2,7 +2,7 @@
 ##
 
 getwd()
-setwd("/Users/admin/GitHub/grammaR/inst/scripts")
+
 
 library(grammaR)
 
@@ -10,15 +10,15 @@ library(grammaR)
 ##
 ## I know, it's a pain this way. But, I need them separate when I'm error
 ## checking.
-mydic <- buildDictionary("inst/scripts/docs/decs-v.txt", T, T)
-mydic <- rbind(mydic, buildDictionary("inst/scripts/docs/decs-n.txt", T, T))
-mydic <- rbind(mydic, buildDictionary("inst/scripts/docs/decs-a.txt", T, T))
-mydic <- rbind(mydic, buildDictionary("inst/scripts/docs/decs-t.txt", T, T))
-mydic <- rbind(mydic, buildDictionary("inst/scripts/docs/decs-psim.txt", T, T))
+setwd("/Users/admin/GitHub/grammaR/inst/scripts")
+mydic <- buildDictionary("docs/decs-v.txt", T, T)
+mydic <- rbind(mydic, buildDictionary("docs/decs-n.txt", T, T))
+mydic <- rbind(mydic, buildDictionary("docs/decs-a.txt", T, T))
+mydic <- rbind(mydic, buildDictionary("docs/decs-psim.txt", T, T))
 mydic <- getUniques(mydic)
-
-
-outfilenames <- c("c1.txt", "c2.txt", "c3.txt",
+mydic$clean <- substr(mydic$val,1,1)
+mydic <- mydic[-which(mydic$clean=="<"),]
+outfilenames <- c("c0frontmatter.txt", "c1.txt", "c2.txt", "c3.txt",
                   "c4.txt", "c5.txt", "c6.txt")
 infilenames <- paste("/Users/admin/GitHub/grammaR/inst/scripts/docs/romance/", outfilenames, sep="")
 outfilenames <- paste("/Users/admin/GitHub/grammaR/inst/scripts/docs/", outfilenames, sep="")
@@ -26,20 +26,25 @@ spinStory(infilenames, mydic, outfilenames)
 
 ## NOT TESTED, DONT RUN
 ##
-for(i in 1:10){
-  setwd("/Users/admin/GitHub/StoryBuilder/docs")
+for(i in 1:25){
+  setwd("/Users/admin/GitHub/grammaR/inst/scripts/docs")
   ## rewrite a.txt
-  generateCharacters()
-  combineFiles(list.files(), paste("../outputs/071815run", i, ".gram", sep="", collapse=""))
+  generateCharacters(writefile=TRUE, outname="aNames.txt")
+  combineFiles(list.files(), paste("../outputs/072215run", i, ".gram", sep="", collapse=""))
   setwd("../outputs")
-  createStory(paste("071815run", i, sep="", collapse=""), 1)
-
+  createStory(paste("072215run", i, sep="", collapse=""), 1)
 }
-authordf <- getAuthorTitles()
-buildJson(authordf)
-setwd("../covers")
-makeCommandsCovers(authordf)
+cleanDocs()
 
+authordf <- getAuthorTitles()
+#buildJson(authordf)
+setwd("../covers")
+makeCommandsCovers(authordf, exec=TRUE)
+setwd("../outputs")
+store <- makePandocCommand(authordf)
+for(i in 1:length(store)){
+  system(store[i])
+}
 ## okay, so we can use imagemagick to make ebook covers. The workflow should be something like:
 ## for each author/title combo
 ## random pick image file in images directory

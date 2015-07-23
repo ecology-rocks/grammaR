@@ -43,11 +43,22 @@ makeCommandsCovers <- function(df, sdir="./", odir="./", stockdir="originals/", 
 
     ## if coinflip was "yes", make a colorize string.
     if(colorizetest==1){
-      colorizeopts <- paste("-colorize ",
-                            sample(0:255, 1), ",",
-                            sample(0:255, 1), ",",
-                            sample(0:255, 1), " ",
-                            sep="")
+      randomizedtint <- sample(1:3, 1)
+      if(randomizedtint==1){
+        colorizeopts <- paste("-colorize ",
+                              sample(0:255, 1), ",0,0",
+                              sep="")
+      }
+      if(randomizedtint==2){
+        colorizeopts <- paste("-colorize ",
+                              "0,", sample(0:255, 1), ",0",
+                              sep="")
+      }
+      if(randomizedtint==3){
+        colorizeopts <- paste("-colorize ",
+                              "0,0,", sample(0:255, 1),
+                              sep="")
+      }
 
     } ## end colorize if
 

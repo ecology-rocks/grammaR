@@ -19,6 +19,7 @@ combineFiles <- function (listfiles, outFileName, exec=TRUE){
   response <- ""
   for(i in listfiles){
     x <- readLines(i)
+    x <- gsub("NA", "", x, fixed=TRUE)
     if(exec==TRUE){
       writeLines(x[1:length(x)], outfile)
     } else{

@@ -31,7 +31,7 @@ buildDictionary <- function(inText, readfile=TRUE, formatKey=TRUE){
     temp.df <- data.frame(key=beginning, val=end, stringsAsFactors=F)
     new.df <- rbind(new.df, temp.df)
   }
-    ## return, clean up the first empty line.
+    ## return, clean up the first empty line.'
     new.df <- new.df[-c(1),]
     ## rename rows for consistency
     rownames(new.df) <- 1:nrow(new.df)
