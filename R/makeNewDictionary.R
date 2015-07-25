@@ -10,11 +10,14 @@
 #'
 #' @export
 
-makeNewDictionary <- function(writeme=FALSE, filename="", carryme=c()){
+makeNewDictionary <- function(writeme=FALSE, filename="", carryme=c(), carrydf=data.frame(key="", val="", stringsAsFactors=F), vectorPrint=""){
+  if(vectorPrint==""){
+    vectorPrint <- readline("Do you need this to build a dataframe or a file? Answer d/f.")
+  }
   key <- readline("What is the key for this set of values? ")
-  allrows <- readline("How many values are you entering? ")
+  allrows <- as.numeric(readline("How many values are you entering? "))
 
-  if(allrows < 1){
+  while(allrows < 1 | is.na(allrows)){
     allrows <- readline("Sorry, that was not a valid answer. How many values are you entering? ")
   }
    values <- c()
@@ -23,15 +26,22 @@ makeNewDictionary <- function(writeme=FALSE, filename="", carryme=c()){
   }
 
   store <- buildEntry(key, values)
+  storedf <- data.frame(key=key, val=values, stringsAsFactors=F)
+  finaldf <- rbind(carrydf, storedf)
   final <- c(carryme, store)
   done <- readline("Are you done? y/n")
   if(done!="y" & done!="n"){
     done <- readLine("Sorry, that was not a valid answer. Are you done? Please enter y or n.")
   }
   if(done=="n"){
-    makeNewDictionary(carryme=final)
+    makeNewDictionary(carryme=final, carrydf=finaldf, vectorPrint=vectorPrint)
   } else{
     if(writeme==FALSE){
+      if(vectorPrint=="d"){
+        finaldf <- finaldf[-1,]
+        rownames(finaldf) <- 1:nrow(finaldf)
+        return(finaldf)
+      }
       return(final)
     }
   }
