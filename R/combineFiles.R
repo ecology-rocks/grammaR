@@ -5,7 +5,7 @@
 #'
 #' @param listfiles The list of files to be read in. You can use "list.files()"
 #'   to generate these.
-#' @param outFileName The name of the file, including extension, that we want to
+#' @param outfilename The name of the file, including extension, that we want to
 #'   write.
 #' @param exec If true, the code will execute. If false, the code will print to
 #'   a list.
@@ -14,8 +14,8 @@
 #'   written outfile.
 #' @export
 
-combineFiles <- function (listfiles, outFileName, exec=TRUE){
-  outfile <- file(outFileName, "w")
+combineFiles <- function (listfiles, outfilename, exec=TRUE){
+  outfile <- file(outfilename, "w")
   response <- ""
   for(i in listfiles){
     x <- readLines(i)
