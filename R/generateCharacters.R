@@ -8,14 +8,17 @@
 #' @param whichnames Default is first, set to last or both to change the output
 #'   string
 #' @param writefile If set to true, this function will write a file.
-#' @param outname The directory and name of file that we should write if
+#' @param outfilename The directory and name of file that we should write if
 #'   writefile=TRUE
 #'
 #' @return This function returns the value of the file that it will write.
 #'
+#' @examples
+#'  generateCharacters()
+#'
 #' @export
 
-generateCharacters <- function(charnames=c("cFemName", "cMaleName", "cFriendName", "cPetName"), chargenders=c("F", "M", "F", "M"), whichnames="first", writefile=FALSE, outname="aNames.txt"){
+generateCharacters <- function(charnames=c("cFemName", "cMaleName", "cFriendName", "cPetName"), chargenders=c("F", "M", "F", "M"), whichnames="first", writefile=FALSE, outfilename="aNames.txt"){
   require(randomNames)
   ## only if genders and characters match...
   middlematter <- ""
@@ -40,7 +43,7 @@ generateCharacters <- function(charnames=c("cFemName", "cMaleName", "cFriendName
   }
 
   if(writefile==TRUE){
-    write(middlematter, outname)
+    write(middlematter, outfilename)
   }
   return(middlematter)
 }
