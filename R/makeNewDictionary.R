@@ -1,10 +1,16 @@
 #' Interactive: Make A New Dictionary
 #'
-#' This is an interactive function that will help you build a dictionary. The writeme functionality is currently NOT implemented.
+#' This is an interactive function that will help you build a dictionary. The
+#' writeme functionality is currently NOT implemented. This function is not
+#' tested thoroughly because of its interactive nature. Assign this function to
+#' a variable to save your results.
 #'
 #' @param writeme When active, this parameter should let you write to a file.
 #' @param filename The file to write to, when writeme works.
-#' @param carryme This is a vector of other lines to include in the file. It gets carried recursively through the function.
+#' @param carryme This is a vector of other lines to include in the file. It
+#'   gets carried recursively through the function.
+#' @param carrydf Another recursive option, do not use.
+#' @param vectorPrint Another recursive option.
 #'
 #' @return This function returns a vector of key::=vals dictionary entries.
 #'
@@ -43,7 +49,10 @@ makeNewDictionary <- function(writeme=FALSE, filename="", carryme=c(), carrydf=d
         return(finaldf)
       }
       return(final)
+    } else{
+      writeLines(final, con=filename)
     }
+
   }
 
 
