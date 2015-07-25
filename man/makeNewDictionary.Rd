@@ -4,19 +4,29 @@
 \alias{makeNewDictionary}
 \title{Interactive: Make A New Dictionary}
 \usage{
-makeNewDictionary(writeme = FALSE, filename = "", carryme = c())
+makeNewDictionary(writeme = FALSE, filename = "", carryme = c(),
+  carrydf = data.frame(key = "", val = "", stringsAsFactors = F),
+  vectorPrint = "")
 }
 \arguments{
 \item{writeme}{When active, this parameter should let you write to a file.}
 
 \item{filename}{The file to write to, when writeme works.}
 
-\item{carryme}{This is a vector of other lines to include in the file. It gets carried recursively through the function.}
+\item{carryme}{This is a vector of other lines to include in the file. It
+gets carried recursively through the function.}
+
+\item{carrydf}{Another recursive option, do not use.}
+
+\item{vectorPrint}{Another recursive option.}
 }
 \value{
 This function returns a vector of key::=vals dictionary entries.
 }
 \description{
-This is an interactive function that will help you build a dictionary. The writeme functionality is currently NOT implemented.
+This is an interactive function that will help you build a dictionary. The
+writeme functionality is currently NOT implemented. This function is not
+tested thoroughly because of its interactive nature. Assign this function to
+a variable to save your results.
 }
 

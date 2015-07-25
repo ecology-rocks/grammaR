@@ -4,12 +4,12 @@
 \alias{buildDictionary}
 \title{Build Dictionary From Text Or File}
 \usage{
-buildDictionary(gramtext, readfile = TRUE, formatKey = TRUE)
+buildDictionary(inText, readfile = TRUE, formatKey = TRUE)
 }
 \arguments{
-\item{gramtext}{The input text, or, a filename.}
+\item{inText}{The input text, or, a filename.}
 
-\item{readfile}{If TRUE, gramtext is a filename to read from.}
+\item{readfile}{If TRUE, inText is a filename to read from.}
 
 \item{formatKey}{If TRUE, the key is formatted to <key> instead of key.}
 }
