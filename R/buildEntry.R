@@ -7,6 +7,10 @@
 #' @param values A vector of strings with the values.
 #'
 #' @return This function returns your new string.
+#'
+#' @examples
+#' buildEntry("rawr", c("a", "b", "c"))
+#'
 #' @export
 
 buildEntry <- function(key, values){

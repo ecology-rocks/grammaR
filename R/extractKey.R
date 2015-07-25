@@ -1,12 +1,17 @@
 #' Extract A Key From The Dictionary
 #'
 #' A function to extract keys from the unique dictionary syntax, which goes key
-#' ::= val1 | val2 | etc..., and put it in its proper format.
+#' ::= val1 | val2 | etc..., and put it in its proper format. See the
+#' complementary functions \code{\link{extractValue}} and the opposite function
+#' \code{\link{buildEntry}} for other options.
 #'
 #' @param inString A string to be formatted.
 #' @param format If set to TRUE (default), then <> are added around the word for
 #'   insertion into a story.
 #' @return This function returns the modified string.
+#'
+#' @examples
+#' extractKey("rawr ::= a | b | c", format=TRUE)
 #' @export
 
 
