@@ -6,7 +6,7 @@
 \usage{
 generateCharacters(charnames = c("cFemName", "cMaleName", "cFriendName",
   "cPetName"), chargenders = c("F", "M", "F", "M"), whichnames = "first",
-  writefile = FALSE, outname = "aNames.txt")
+  writefile = FALSE, outfilename = "aNames.txt")
 }
 \arguments{
 \item{charnames}{A vector of keys to use for the characters, e.g., cFemName}
@@ -18,7 +18,7 @@ string}
 
 \item{writefile}{If set to true, this function will write a file.}
 
-\item{outname}{The directory and name of file that we should write if
+\item{outfilename}{The directory and name of file that we should write if
   writefile=TRUE}
 }
 \value{
@@ -27,5 +27,8 @@ This function returns the value of the file that it will write.
 \description{
 This function generates character first names by gender. It requires the
 randomNames package.
+}
+\examples{
+generateCharacters()
 }
 

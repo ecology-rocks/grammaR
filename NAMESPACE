@@ -3,7 +3,7 @@
 export(bracketXtract)
 export(buildDictionary)
 export(buildEntry)
-export(buildJson)
+export(cleanDocs)
 export(combineFiles)
 export(createStory)
 export(echoDictionaryEntry)

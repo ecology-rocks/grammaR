@@ -17,6 +17,11 @@ This function returns the modified string.
 }
 \description{
 A function to extract keys from the unique dictionary syntax, which goes key
-::= val1 | val2 | etc..., and put it in its proper format.
+::= val1 | val2 | etc..., and put it in its proper format. See the
+complementary functions \code{\link{extractValue}} and the opposite function
+\code{\link{buildEntry}} for other options.
+}
+\examples{
+extractKey("rawr ::= a | b | c", format=TRUE)
 }
 

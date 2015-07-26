@@ -9,14 +9,22 @@ createStory(filename, n = 1, exec = TRUE)
 \arguments{
 \item{filename}{The name of the file, do not include the .gram extension.}
 
-\item{n}{The number of times you want to generate the grammar and OCaml from scratch.}
+\item{n}{The number of times you want to generate the grammar and OCaml from
+scratch.}
 
-\item{exec}{This is an error switch. Set to FALSE to see your system commands, if they are failing.}
+\item{exec}{This is an error switch. Set to FALSE to see your system
+  commands, if they are failing.}
 }
 \value{
-Either this function is set to exec=TRUE and returns nothing, but writes a whole bunch of files, or is set to FALSE and returns the command strings to be executed later.
+Either this function is set to exec=TRUE and returns nothing, but
+  writes a whole bunch of files, or is set to FALSE and returns the command
+  strings to be executed later.
 }
 \description{
-This is the meaty function. It takes a filename, appends ".gram", then runs compile-grammar.pl over it. compile-grammar.pl MUST be in the same directory. Because I'm lazy. Then it'll run OCaml to execute the code and convert to .tex.
+This is the meaty function. It takes a filename, appends ".gram", then runs
+compile-grammar.pl over it. compile-grammar.pl MUST be in the same directory.
+Because I'm lazy. Then it'll run OCaml to execute the code and convert to
+.tex. I hope to convert this functionality completely to R to avoid this
+messy use of system commands.
 }
 

@@ -4,13 +4,13 @@
 \alias{combineFiles}
 \title{Combine All Files In A List}
 \usage{
-combineFiles(listfiles, outFileName, exec = TRUE)
+combineFiles(listfiles, outfilename, exec = TRUE)
 }
 \arguments{
 \item{listfiles}{The list of files to be read in. You can use "list.files()"
 to generate these.}
 
-\item{outFileName}{The name of the file, including extension, that we want to
+\item{outfilename}{The name of the file, including extension, that we want to
 write.}
 
 \item{exec}{If true, the code will execute. If false, the code will print to

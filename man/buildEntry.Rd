@@ -18,4 +18,7 @@ This function returns your new string.
 The tiniest function ever to build a key value entry. It is essentially the
 opposite of extractKey and extract Value.
 }
+\examples{
+buildEntry("rawr", c("a", "b", "c"))
+}
 

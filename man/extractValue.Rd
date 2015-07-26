@@ -9,7 +9,8 @@ extractValue(inString, format = TRUE)
 \arguments{
 \item{inString}{A string to be formatted.}
 
-\item{format}{If set to TRUE (default), then the string is split into individual members by | before being returned.}
+\item{format}{If set to TRUE (default), then the string is split into
+individual members by | before being returned.}
 }
 \value{
 This function returns the modified string.
@@ -17,6 +18,11 @@ This function returns the modified string.
 \description{
 A function to extract values from the unique dictionary syntax, which goes
 key ::= val1 | val2 | etc..., and put it in its proper format, which is
-individual members of a vector.
+individual members of a vector. See the complementary functions
+\code{\link{extractKey}} and the opposite function \code{\link{buildEntry}}
+for other options.
+}
+\examples{
+extractValue("rawr ::= a | b | c", format=TRUE)
 }
 

@@ -2,11 +2,17 @@
 % Please edit documentation in R/cleanDocs.R
 \name{cleanDocs}
 \alias{cleanDocs}
-\title{Clean NA out of files before compiling}
+\title{This Function Cleans NA From Files Before Compiling}
 \usage{
 cleanDocs()
 }
+\value{
+This function does not have an output, but overwrites files in the
+  current working directory.
+}
 \description{
-Clean NA out of files before compiling
+This simple function gets all possible .tex files in the current working
+directory and removes all "NA" from them, which is a side effect of some of
+the other scripts.
 }
 

@@ -4,9 +4,21 @@
 \alias{spinStory}
 \title{Build A Recursive Story From Normal Text}
 \usage{
-spinStory(infilenames, uniques, outfilenames)
+spinStory(infilenames, mydic, outfilenames, exec = F)
+}
+\arguments{
+\item{infilenames}{A list of input files, with appropriate file paths, to read into the program.}
+
+\item{mydic}{A dictionary of keys and values to look up. Needs "key" and "val" columns. If there are repeat values, the first one only will be used by the program, and there will be no warning.}
+
+\item{outfilenames}{A list of names for the resulting text. Good practice is to place into a separate folder instead of rewriting, in case something bad happens.}
+
+\item{exec}{By default, this is FALSE. If TRUE, the program will write the resulting files to their intended places.}
+}
+\value{
+This function returns a list with the transformed story files. This may be a very, very large list, so be sure to execute this with a variable assignment.
 }
 \description{
-Build A Recursive Story From Normal Text
+This function takes a list of infiles (infilenames), a dictionary, and a list of outfilenames. It will search each line of the infiles for possible trigger words in "val" column of "mydic", and substitute in the correct key value for those words.
 }
 
