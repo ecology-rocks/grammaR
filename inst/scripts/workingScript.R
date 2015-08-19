@@ -55,3 +55,21 @@ for(i in 1:length(store)){
 ## for f in *.jpg; do convert $f -resize 600x900! test/$f; done
 
 
+########## Ok, let's build a story from scratch!
+setwd("/Users/admin/Desktop/testBooks")
+cruise <- makeGrammarFromStory("cruise-original.txt", "story")
+top <- makeGrammarFromStory("cruise-original.txt", "counter")
+finalgrammar <- c(top, cruise)
+writeLines(finalgrammar, con="cruisestory.gram")
+
+mydic <- buildDictionary("docs/decs-v.txt", T, T)
+mydic <- rbind(mydic, buildDictionary("docs/decs-n.txt", T, T))
+mydic <- rbind(mydic, buildDictionary("docs/decs-a.txt", T, T))
+mydic <- rbind(mydic, buildDictionary("docs/decs-psim.txt", T, T))
+mydic <- getUniques(mydic)
+mydic$clean <- substr(mydic$val,1,1)
+mydic <- mydic[-which(mydic$clean=="<"),]
+
+infilenames <- "/Users/admin/Desktop/testBooks/cruisestory.gram"
+outfilenames <- "/Users/admin/Desktop/testBooks/out-cruisestory.gram"
+spinStory(infilenames, mydic, outfilenames)

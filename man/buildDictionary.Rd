@@ -4,20 +4,17 @@
 \alias{buildDictionary}
 \title{Build Dictionary From Text Or File}
 \usage{
-buildDictionary(inText = "", readfile = TRUE, infilename = "",
-  formatKey = TRUE)
+buildDictionary(inText, readfile = TRUE, formatKey = TRUE)
 }
 \arguments{
-\item{readfile}{If TRUE, inText is a filename to read from.}
+\item{inText}{The input text, or, a filename.}
 
-\item{infilename}{The input text, or, a filename.}
+\item{readfile}{If TRUE, inText is a filename to read from.}
 
 \item{formatKey}{If TRUE, the key is formatted to <key> instead of key.}
 }
 \value{
 This function returns a data.frame with keys and values.
-
-buildDictionary("rawr ::= a | b | c", F)
 }
 \description{
 This function extracts keys/values from file or text and return key/values in data.frame

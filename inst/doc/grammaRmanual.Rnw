@@ -1,0 +1,233 @@
+\documentclass{article}
+\usepackage[hidelinks]{hyperref}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Learning grammaR}
+\author{Samantha L. Davis}
+\maketitle
+
+\section{Introduction}
+
+\texttt{grammaR} is a parser for context-free grammar. It is basically a go-between for several different scripts built by other people. \texttt{grammaR} should enable you to do things like spin articles and stories, build dictionaries of synonyms, generate cover art, and even build epubs for submission to places like Amazon Kindle and Smashwords.
+
+In this manual, I will demonstrate some of the common functionalities of \texttt{grammaR} and hopefully get you on your way to creating masterpieces.
+
+\section{Dependencies}
+
+Unfortunately, you will need several pieces of software to run \texttt{grammaR}. I'll list them below then briefly describe how to get them in a few paragraphs.
+
+\begin{itemize}
+  \item R,  from \url{http://cran.r-project.org}
+  \item grammaR, from \url{http://www.github.com/ecology-rocks/grammaR}
+  \item ImageMagick, from \url{http://www.imagemagick.org}
+  \item Pandoc, from \url{http://www.pandoc.org}
+  \item LaTeX, as outlined in the pandoc installation instructions above
+  \item Perl, which comes installed on Mac and Unix (\url{http://www.perl.org})
+  \item OCaml, from \url{http://www.ocaml.org}
+\end{itemize}
+
+Many of these can be downloaded using a package manager like Homebrew or Macports, or Windows alternatives. Feel free to contact me if you run into problems with installation.
+
+\section{How It Works}
+
+Here's how your dictionary gets built. The standard format for a dictionary is as follows:
+
+\begin{itemize}
+  \item \texttt{key ::= value1 | value2 | value3}
+  \item \texttt{key\_ran ::= ran | skipped | jumped | hopped}
+\end{itemize}
+
+So if you have a script that looks like this:
+
+\begin{itemize}
+  \item \texttt{top ::= <myCharacter> <keyRan>.}
+  \item \texttt{myCharacter ::= Jane | John | Julie}
+  \item \texttt{keyRan ::= ran | skipped | jumped | hopped}
+\end{itemize}
+
+It would generate one of the following combinations:
+\begin{itemize}
+  \item Jane ran.
+  \item Jane skipped.
+  \item ...
+  \item Jule hopped.
+\end{itemize}
+
+You can see how quickly, with just a few lines of code, you can generate many, many stories or possibilities. The recursive grammar also works through multiple levels, so if you call a key within a key, it will generate just fine, e.g.:
+
+\begin{itemize}
+  \item \texttt{top ::= <myCharacter> <myAdjective> <keyRan>.}
+  \item \texttt{myCharacter ::= Jane | John | Julie}
+  \item \texttt{keyRan ::= ran | skipped | jumped | hopped | <myAdjective> <keyRan>}
+  \item \texttt{myAdjective ::= quickly | strangely}
+\end{itemize}
+
+This script would generate with a possibility of ``myAdjective" being inserted multiple times, e.g., ``Jane quickly strangely ran."
+
+So everything about this package is based on this premise, and helping you write great stories, or articles, or whatever.
+
+\section{Building Your Dictionary}
+
+You can build a dictionary that will be loaded into R from a text string in R, like so:
+<<>>=
+## load library
+library(grammaR)
+## build dictionary from string
+myDic <- buildDictionary("rawr ::= space | magic", readfile=F, formatKey=T)
+## show dictionary
+myDic
+@
+
+You can also build a dictionary from a text file in R:
+<<>>=
+## create a text file with 2 lines with dictionary values
+  cat("rawr ::= 1 | 2",
+      "boo ::= a | b",
+      file="ex.txt",
+      sep="\n")
+## read them into R
+myDic <- buildDictionary("ex.txt", TRUE)
+## show results
+myDic
+## delete text file
+unlink("ex.txt")
+@
+
+There is also an interactive option that I can't compile automatically in this document, but you can access it using makeNewDictionary() -- example output below.
+<<>>=
+# store <- makeNewDictionary()
+#  > Do you need this to build a dataframe or a file? Answer d/f.
+#  d
+#  > What is the key for this set of values?
+#  rawr
+#  > How many values are you entering?
+#  2
+#  > What is your value?
+#  osaurus
+#  > What is your value?
+#  rex
+#  > Are you done?
+#  y
+#  store
+#   >    key     val
+#   > 1 rawr osaurus
+#   > 2 rawr     rex
+@
+
+\section{Cleaning Your Dictionary}
+When you're loading from a text file, you can often have repeat values. This is exceptionally common in fiction. You might include ``said'' in ``keySighed" and ``keySmiled'' as alternates for the words sighed and smiled. When this happens, if you're using the spinStory feature, it will only choose one to operate on, and you might get unexpected results.
+
+To get around this, I created a function called getUniques, which removes any duplicated value in the dictionary. So if ``said" is in there twice, both instances will be removed. Then you can go back through your story and choose different words, or manually add an entry to your dictionary to make a rule for ``said."
+
+<<>>=
+## create duplicates in values in myDic
+ myDic[,2] <- c("Arbys", "McDonalds", "McDonalds", "Burger King")
+## show dictionary
+myDic
+## show getUniques function
+getUniques(myDic)
+@
+
+If you're having problems playing with getUniques(), you may have values that are too short. getUniques() automatically weeds out any values that are only one character long.
+
+One other thing that you'll need to do if you're going to use the spinStory() function described later is to remove any keys in the values column. This just has to do with the current state of grammaR, and may be supported later. To remove those, you can do something like:
+<<>>=
+## reassign for example
+  myDic[,2] <- c("apples", "<rawr>", "bananas", "broccoli")
+## find the first character of "val" column
+## and put it in a new column named "clean"
+  myDic$clean <- substr(myDic$val,1,1)
+## remove any rows where the "clean" column contains <
+  myDic <- myDic[-which(myDic$clean=="<"),]
+## delete the clean column
+  myDic <- myDic[,-3]
+## show results
+  myDic
+@
+
+\section{Spinning a Story}
+
+Okay, you have a dictionary: now what? The spinStory() function in this package takes normal text, e.g., "A man walks into a bar" and spins it "up" based on your dictionary. So, if you have a dictionary with the values "man" and "woman" in a key labeled "character" and you run it through, you would get a story output that looked more like, "A <character> walks into a bar."
+
+<<>>=
+  ## story file
+cat("A man walks into a bar and steps on a bug.", "",
+    file="a.txt", sep="\n")
+  ## dictionary file
+ myDic <- buildDictionary("character ::= man | woman | alien | horse", F)
+ ## bind the old mDic to a new myDic entry
+ myDic <- rbind(myDic, buildDictionary("place ::= bar | restaurant | home | lake", F))
+ myDic
+@
+
+Ok, so there are our needed components, now, we should just be able to use spinStory() to generate the new file. Here, ``exec" is set to false, and the program prints the output to our console in a list format (all of those brackets), but if you set exec=T, it will write to the file name where ``test.txt" is in the function.
+
+<<>>=
+  ## make list of file names
+  spinStory("a.txt", myDic, "test.txt", exec=F)
+@
+
+\section{Generating Characters}
+
+Another neat thing you can do with this program is automatically generate character names. To do this, we rely on another package in R called \texttt{randomNames}. If it didn't install automatically when you installed the grammaR package, you can do so with the following code, just uncomment it:
+<<>>=
+# install.packages("randomNames")
+ library(randomNames)
+@
+
+After you load the library, you can use the default function to generate some names:
+
+<<>>=
+generateCharacters("mainChar", "F")
+generateCharacters(c("char1", "char2"), c("f", "m"), writefile=T, outfilename="char.txt")
+@
+
+These names are meant to be put into a file, which you can specify by setting writefile to true and outfilename to your intended filename. When I'm generating in bulk, I create a character file each time I run my script, and it gives my characters new names.
+
+\section{Putting It All Together}
+
+Finally, let's say you have a story file (with your spun story), a top file that starts it all, a dictionary file, and your character file. You need to combine these into a final file that will then be read by the Perl/OCaml files and turned into a story. Let's do a simple example here.
+
+<<>>=
+## your first file, read in alphabetically,
+## will be the starting point of the program
+cat("start ::= My Story <linebreak> Sam Davis <linebreak> <story>",
+    "linebreak ::= \\n",
+    file="a.txt", sep="\n")
+cat("story ::= Once upon a time, <char1> kissed <char2>",
+    file="b.txt", sep="\n")
+
+## char.txt already got generated with
+## the values of <char1> and <char2> inside.
+myFiles <- list.files(pattern=".txt")
+myFiles
+combineFiles(myFiles, "myStory.gram")
+## show the file
+readLines("myStory.gram")
+@
+
+And there we have it, a .gram file generated! ...Oh wait, we need to actually run the script and get the recursive story!
+
+<<>>=
+createStory("myStory")
+readLines("myStory-1.tex")
+@
+
+So if you loop these say, 25 times, you'll get 25 different stories! I can show you the power of that here:
+
+<<>>=
+for(i in 1:25){
+  generateCharacters(c("char1", "char2"),
+                     c("f", "m"),
+                     writefile=T,
+                     outfilename="char.txt")
+  combineFiles(list.files(pattern=".txt"), "myStory.gram")
+  createStory("myStory", 1)
+ print(readLines("myStory-1.tex"))
+}
+@
+
+And you can modify as needed, of course, for when you actually want to save your outputs.
+
+\end{document}
