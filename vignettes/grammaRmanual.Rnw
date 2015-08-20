@@ -214,10 +214,10 @@ createStory("myStory")
 readLines("myStory-1.tex")
 @
 
-So if you loop these say, 25 times, you'll get 25 different stories! I can show you the power of that here:
+So if you loop these say, 10 times, you'll get 10 different stories! I can show you the power of that here:
 
 <<>>=
-for(i in 1:25){
+for(i in 1:10){
   generateCharacters(c("char1", "char2"),
                      c("f", "m"),
                      writefile=T,
@@ -229,5 +229,55 @@ for(i in 1:25){
 @
 
 And you can modify as needed, of course, for when you actually want to save your outputs.
+
+\section{Experimental Features: Ebook Covers}
+
+These features are currently supported for \textit{my} workflow, which is:  \texttt{file.gram} to \texttt{file.tex} (LaTex) to \texttt{file.pdf} or \texttt{file.epub}, using pandoc. If you're producing your ebooks in other formatting styles, then you'll need to extend this package to support these experimental functions.
+
+To demonstrate, let's get a legal LaTeX file ready, something a little more complex than the .tex file that we generated above.
+<<>>=
+cat("\\begin{document}",
+    "\\title{My Cool Story}",
+    "\\author{Mr. McAwesome}",
+    "\\maketile",
+    "\\chapter{The Start}",
+    "Once upon a time, there was a girl, and she was awesome.",
+    "\\end{document}",
+    file="test.tex", sep="\n"
+    )
+
+authordf <- getAuthorTitles(filename="test.tex")
+authordf
+str(authordf)
+@
+
+So the code above will generate a tex file and then extract the author and title from it. Then, you can use that author data.frame (or build your own to use) to generate covers.
+
+<<>>=
+makeCommandsCovers(authordf, stockdir="./", exec=T)
+
+## use ?makeCommandsCovers to check out where your files belong.
+@
+
+\begin{figure}[h!]
+  \caption{Our converted ebook cover.}
+  \centering
+    \includegraphics[width=0.5\textwidth]{mrmcawesome-mycoolstory.jpg}
+\end{figure}
+
+And finally, we can generate an epub file using this command:
+
+
+
+<<>>=
+
+store <- makePandocCommand(authordf, filename="test.tex")
+
+## execute store using the system command to generate an epub.
+#   system(store)
+
+@
+
+
 
 \end{document}

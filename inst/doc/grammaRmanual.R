@@ -140,7 +140,7 @@ readLines("myStory-1.tex")
 ###################################################
 ### code chunk number 12: grammaRmanual.Rnw:219-228
 ###################################################
-for(i in 1:25){
+for(i in 1:10){
   generateCharacters(c("char1", "char2"),
                      c("f", "m"),
                      writefile=T,
@@ -149,5 +149,42 @@ for(i in 1:25){
   createStory("myStory", 1)
  print(readLines("myStory-1.tex"))
 }
+
+
+###################################################
+### code chunk number 13: grammaRmanual.Rnw:238-251
+###################################################
+cat("\\begin{document}",
+    "\\title{My Cool Story}",
+    "\\author{Mr. McAwesome}",
+    "\\maketile",
+    "\\chapter{The Start}",
+    "Once upon a time, there was a girl, and she was awesome.",
+    "\\end{document}",
+    file="test.tex", sep="\n"
+    )
+
+authordf <- getAuthorTitles(filename="test.tex")
+authordf
+str(authordf)
+
+
+###################################################
+### code chunk number 14: grammaRmanual.Rnw:256-259
+###################################################
+makeCommandsCovers(authordf, stockdir="./", exec=T)
+
+## use ?makeCommandsCovers to check out where your files belong.
+
+
+###################################################
+### code chunk number 15: grammaRmanual.Rnw:272-278
+###################################################
+
+store <- makePandocCommand(authordf, filename="test.tex")
+
+## execute store using the system command to generate an epub.
+#   system(store)
+
 
 
