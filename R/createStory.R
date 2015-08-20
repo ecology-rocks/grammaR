@@ -19,23 +19,34 @@
 
 createStory <- function(filename, n=1, exec=TRUE){
   response <- ""
+
+  if(!substr(filename, nchar(filename)-4, nchar(filename))==".gram"){
+    filename <- paste(filename, ".gram", sep="")
+  }
+    #print("Woo hoo!!!")
+  #}
   for(i in 1:n){
-    perlcommand <- paste("perl compile-grammar.pl ",
-                         filename, ".gram",
+    perlcommand <- paste("perl ",
+                         system.file("perl", "compile-grammar.pl", package = "grammaR"),
+                         " ",
+                         filename,
                          sep="",
                          collapse="")
     ocamlcommand <- paste("ocaml ",
-                          filename, ".ml > ",
-                          filename, "-", i, ".tex",
+                          gsub(".gram", ".ml", filename),
+                          " > ",
+                          gsub(".gram", "", filename), "-", i, ".tex",
                           sep="")
     if(exec==TRUE){
-    system(perlcommand)
-    system(ocamlcommand)
+      system(perlcommand)
+      system(ocamlcommand)
     } else{
       response <- c(response, perlcommand, ocamlcommand)
     }
   }
   if(exec==FALSE){
     return(response)
+  } else{
+    cleanDocs()
   }
 }

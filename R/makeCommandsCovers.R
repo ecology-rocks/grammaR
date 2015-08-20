@@ -46,23 +46,25 @@ makeCommandsCovers <- function(df, sdir="./", odir="./", stockdir="originals/", 
       randomizedtint <- sample(1:3, 1)
       if(randomizedtint==1){
         colorizeopts <- paste("-colorize ",
-                              sample(0:255, 1), ",0,0",
+                              sample(0:200, 1), ",0,0",
                               sep="")
       }
       if(randomizedtint==2){
         colorizeopts <- paste("-colorize ",
-                              "0,", sample(0:255, 1), ",0",
+                              "0,", sample(0:200, 1), ",0",
                               sep="")
       }
       if(randomizedtint==3){
         colorizeopts <- paste("-colorize ",
-                              "0,0,", sample(0:255, 1),
+                              "0,0,", sample(0:200, 1),
                               sep="")
       }
 
     } ## end colorize if
 
-
+## put resize command here!!!!
+##
+##
 
 ##This command is as follows: Make a mostly black background. Set the font
 ##to color white. Center the text. Make the fontsize 48. Make the image

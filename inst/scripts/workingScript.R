@@ -34,7 +34,6 @@ for(i in 1:25){
   setwd("../outputs")
   createStory(paste("072215run", i, sep="", collapse=""), 1)
 }
-cleanDocs()
 
 authordf <- getAuthorTitles()
 #buildJson(authordf)
@@ -57,10 +56,10 @@ for(i in 1:length(store)){
 
 ########## Ok, let's build a story from scratch!
 setwd("/Users/admin/Desktop/testBooks")
-cruise <- makeGrammarFromStory("cruise-original.txt", "story")
+cruise <- makeGrammarFromStory("cruise-original.txt")
 top <- makeGrammarFromStory("cruise-original.txt", "counter")
 finalgrammar <- c(top, cruise)
-writeLines(finalgrammar, con="cruisestory.gram")
+writeLines(cruise, con="cruisestory.gram")
 
 mydic <- buildDictionary("docs/decs-v.txt", T, T)
 mydic <- rbind(mydic, buildDictionary("docs/decs-n.txt", T, T))

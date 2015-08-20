@@ -1,9 +1,12 @@
 #' Making Pandoc Execs
 #' @export
 
-makePandocCommand <- function(authordf){
-  listoffiles <- list.files(pattern="*.tex")
-
+makePandocCommand <- function(authordf, filename="", exec=F){
+  if(nchar(filename) > 0){
+      listoffiles <- filename
+  } else{
+      listoffiles <- list.files(pattern="*.tex")
+  }
   response <- c()
   for(i in 1:length(listoffiles)){
     author <- authordf[i, "author"]
