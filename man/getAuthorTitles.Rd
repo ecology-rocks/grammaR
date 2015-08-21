@@ -4,10 +4,12 @@
 \alias{getAuthorTitles}
 \title{Extract Authors and Titles From LaTeX document}
 \usage{
-getAuthorTitles(sdir = ".")
+getAuthorTitles(sdir = ".", filetype = "*.tex", filename = NULL)
 }
 \arguments{
 \item{sdir}{The directory to process}
+
+\item{filetype}{The type of file to process. Currently only supports .tex files.}
 }
 \value{
 This function returns a data.frame with titles and authors for a directory of LaTeX documents.

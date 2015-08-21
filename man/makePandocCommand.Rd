@@ -4,7 +4,7 @@
 \alias{makePandocCommand}
 \title{Making Pandoc Execs}
 \usage{
-makePandocCommand(authordf)
+makePandocCommand(authordf, filename = "", exec = F)
 }
 \description{
 Making Pandoc Execs
