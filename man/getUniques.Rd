@@ -4,15 +4,28 @@
 \alias{getUniques}
 \title{Trim Data.Frame To Unique Values Only}
 \usage{
-getUniques(df)
+getUniques(df, colname = "val")
 }
 \arguments{
-\item{df}{The data.frame to check; should have a column named "val" -- that's the unique column.}
+\item{df}{The data.frame to check; should have a column named "val" or a
+character value in "colname" parameter.}
+
+\item{colname}{The name of the column to search and clean by.}
 }
 \value{
-This function returns a data.frame with only unique values. It also should remove any stray "|" symbols.
+This function returns a data.frame with only unique values. It also
+  removes any stray "|" symbols.
 }
 \description{
-This function removes all entries with a repeated value.
+This function is used to remove any rows in a data.frame with repeated
+elements. It is necessary in grammaR because if we have two keys with the
+value "said" in the dictionary, one will override the other when we do things
+like spin a story up from plain text.
+}
+\examples{
+## removing uniques, cleaning out | symbols
+sampleDf <- data.frame(key=c("<rubber>", "<joy>", "<hangar>"),
+       val=c("farm", "farm", "toys |"), stringsAsFactors=F)
+ getUniques(sampleDf)
 }
 
