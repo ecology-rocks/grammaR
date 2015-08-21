@@ -8,11 +8,28 @@
 #'@param exec By default, this is FALSE. If TRUE, the program will write the resulting files to their intended places.
 #' @return This function returns a list with the transformed story files. This may be a very, very large list, so be sure to execute this with a variable assignment.
 #'
+#'@examples
+#'cat("The dog walked in the park.", "The End.", sep="\n", file="sampleStory.txt")
+#'myDic <- data.frame(key=c("<animal>", "<animal>", "<walk>", "<walk>", "<park>"),
+#'                    val=c("dog", "cat", "ran", "walked", "park"), stringsAsFactors=F)
+#'spinStory("sampleStory.txt", myDic, "rawr.txt" )
 #'
 #' @export
 
 
-spinStory <- function(infilenames, mydic, outfilenames, exec=F){
+spinStory <- function(infilenames, mydic, outfilenames="", exec=F){
+
+  ## check file types
+  if(!is.character(infilenames) | !is.character((outfilenames))){
+    stop("Sorry, filenames are incorrect")
+    }
+  if(!is.data.frame(mydic)){
+    stop("Sorry, mydic needs to be a data.frame")
+  }
+  if(!is.logical(exec)){
+    stop("Sorry, exec must be a boolean")
+  }
+
   for(i in 1:length(infilenames)){
     finallist <- list()
     storylines <- readLines(infilenames[i], n=-1)
@@ -21,6 +38,8 @@ spinStory <- function(infilenames, mydic, outfilenames, exec=F){
       storylines <- gsub(paste(" ", mydic[j, "val"], " ", sep=""), paste(" ", mydic[j, "key"], " ", sep=""), storylines, fixed=TRUE)
       storylines <- gsub(paste(" ", mydic[j, "val"], ".", sep=""), paste(" ", mydic[j, "key"], ".", sep=""), storylines, fixed=TRUE)
       storylines <- gsub(paste(" ", mydic[j, "val"], ",", sep=""), paste(" ", mydic[j, "key"], ",", sep=""), storylines, fixed=TRUE)
+      storylines <- gsub(paste(" ", mydic[j, "val"], "!", sep=""), paste(" ", mydic[j, "key"], "!", sep=""), storylines, fixed=TRUE)
+      storylines <- gsub(paste(" ", mydic[j, "val"], "?", sep=""), paste(" ", mydic[j, "key"], "?", sep=""), storylines, fixed=TRUE)
     }
     if(exec==T){
     writeLines(storylines, outfilenames[i])

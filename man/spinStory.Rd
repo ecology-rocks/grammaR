@@ -4,7 +4,7 @@
 \alias{spinStory}
 \title{Build A Recursive Story From Normal Text}
 \usage{
-spinStory(infilenames, mydic, outfilenames, exec = F)
+spinStory(infilenames, mydic, outfilenames = "", exec = F)
 }
 \arguments{
 \item{infilenames}{A list of input files, with appropriate file paths, to read into the program.}
@@ -20,5 +20,11 @@ This function returns a list with the transformed story files. This may be a ver
 }
 \description{
 This function takes a list of infiles (infilenames), a dictionary, and a list of outfilenames. It will search each line of the infiles for possible trigger words in "val" column of "mydic", and substitute in the correct key value for those words.
+}
+\examples{
+cat("The dog walked in the park.", "The End.", sep="\\n", file="sampleStory.txt")
+myDic <- data.frame(key=c("<animal>", "<animal>", "<walk>", "<walk>", "<park>"),
+                   val=c("dog", "cat", "ran", "walked", "park"), stringsAsFactors=F)
+spinStory("sampleStory.txt", myDic, "rawr.txt" )
 }
 
