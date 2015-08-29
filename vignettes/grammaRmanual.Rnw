@@ -146,7 +146,7 @@ One other thing that you'll need to do if you're going to use the spinStory() fu
   myDic
 @
 
-\section{Spinning a Story}
+\section{Spinning a Story Up}
 
 Okay, you have a dictionary: now what? The spinStory() function in this package takes normal text, e.g., "A man walks into a bar" and spins it "up" based on your dictionary. So, if you have a dictionary with the values "man" and "woman" in a key labeled "character" and you run it through, you would get a story output that looked more like, "A <character> walks into a bar."
 

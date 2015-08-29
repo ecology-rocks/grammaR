@@ -12,15 +12,15 @@
 #' @export
 
 bracketXtract <-
-  function(txt, br = c("(", "[", "{", "all"), with=FALSE)
+  function(txt, br = c("(", "[", "{", "<", "all"), with=FALSE)
   {
     br <- match.arg(br)
     left <-        # what pattern are we looking for on the left?
-      if ("all" == br) "\\(|\\{|\\["
+      if ("all" == br) "\\(|\\{|\\[\\<"
     else sprintf("\\%s", br)
     map <-         # what's the corresponding pattern on the right?
-      c(`\\(`="\\)", `\\[`="\\]", `\\{`="\\}",
-        `\\(|\\{|\\[`="\\)|\\}|\\]")
+      c(`\\(`="\\)", `\\[`="\\]", `\\{`="\\}", `\\<`='\\>',
+        `\\(|\\{|\\[`="\\)|\\}|\\]|\\>")
     fmt <-         # create the appropriate regular expression
       if (with) "(%s).*?(%s)"
     else "(?<=%s).*?(?=%s)"

@@ -4,7 +4,7 @@
 \alias{bracketXtract}
 \title{Extract Text Between Any Brackets}
 \usage{
-bracketXtract(txt, br = c("(", "[", "{", "all"), with = FALSE)
+bracketXtract(txt, br = c("(", "[", "{", "<", "all"), with = FALSE)
 }
 \arguments{
 \item{txt}{The text string}

@@ -17,7 +17,7 @@
 #'   strings to be executed later.
 #' @export
 
-createStory <- function(filename, n=1, exec=TRUE){
+createStory <- function(filename, n=1, exec=TRUE, outfileExt=".tex"){
   response <- ""
 
   if(!substr(filename, nchar(filename)-4, nchar(filename))==".gram"){
@@ -25,6 +25,8 @@ createStory <- function(filename, n=1, exec=TRUE){
   }
     #print("Woo hoo!!!")
   #}
+  #
+myResponseList <- ""
   for(i in 1:n){
     perlcommand <- paste("perl ",
                          system.file("perl", "compile-grammar.pl", package = "grammaR"),
@@ -35,18 +37,26 @@ createStory <- function(filename, n=1, exec=TRUE){
     ocamlcommand <- paste("ocaml ",
                           gsub(".gram", ".ml", filename),
                           " > ",
-                          gsub(".gram", "", filename), "-", i, ".tex",
+                          gsub(".gram", "", filename), "-", i, outfileExt,
                           sep="")
     if(exec==TRUE){
       system(perlcommand)
       system(ocamlcommand)
+      myResponseList <- c(myResponseList, paste(gsub(".gram", "", filename),
+                                                "-", i, outfileExt, sep=""))
     } else{
       response <- c(response, perlcommand, ocamlcommand)
     }
+
+
   }
   if(exec==FALSE){
     return(response)
   } else{
-    cleanDocs()
+    cleanDocs(outfileExt)
+    unlink(gsub(".gram", ".ml", filename))
+    return(myResponseList[-1])
   }
+
+
 }

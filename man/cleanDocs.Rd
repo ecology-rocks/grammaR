@@ -4,11 +4,14 @@
 \alias{cleanDocs}
 \title{This Function Cleans NA From Files Before Compiling}
 \usage{
-cleanDocs()
+cleanDocs(myPattern = ".text")
+}
+\arguments{
+\item{myPattern}{The type of pattern to look for, e.g., .tex}
 }
 \value{
 This function does not have an output, but overwrites files in the
-  current working directory.
+  current working directory. BE CAREFUL!
 }
 \description{
 This simple function gets all possible .tex files in the current working

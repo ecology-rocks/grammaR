@@ -1,2 +1,4 @@
-rawr ::= 1 | 2
-boo ::= a | b
+top ::= <greeting> <place>!
+greeting ::= Hello | Howdy | Hey there | What's up
+place ::= fart <monkey>
+monkey ::= boner

@@ -4,7 +4,7 @@
 \alias{createStory}
 \title{Compile A File With Perl and Ocaml, Converting To .Tex}
 \usage{
-createStory(filename, n = 1, exec = TRUE)
+createStory(filename, n = 1, exec = TRUE, outfileExt = ".tex")
 }
 \arguments{
 \item{filename}{The name of the file, do not include the .gram extension.}
